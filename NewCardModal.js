@@ -5,7 +5,9 @@ import {
   Modal, 
   View, 
   TextInput, 
-  TouchableHighlight 
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 
 export default class NewCardModal extends React.Component {
@@ -21,55 +23,57 @@ export default class NewCardModal extends React.Component {
         transparent={false}
         visible={this.props.modalVisible}
       >
-        <View style={styles.newCardModal}>
-          <TouchableHighlight 
-            onPress={this.props.toggleModal} 
-            underlayColor='transparent'
-            style={styles.closeButton}
-          >
-             <Text style={styles.closeButtonText}>✕</Text>
-          </TouchableHighlight>
+        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+          <View style={styles.newCardModal}>
+            <TouchableHighlight 
+              onPress={this.props.toggleModal} 
+              underlayColor='transparent'
+              style={styles.closeButton}
+            >
+               <Text style={styles.closeButtonText}>✕</Text>
+            </TouchableHighlight>
 
-          <TextInput 
-            placeholder='New Term'
-            style={styles.newTermInput} 
-            value={this.state.newTermInput} 
-            onChangeText={(text) => {
-              this.setState({
-                newTermInput: text
-              });
-            }}
-          />
+            <TextInput 
+              placeholder='New Term'
+              style={styles.newTermInput} 
+              value={this.state.newTermInput} 
+              onChangeText={(text) => {
+                this.setState({
+                  newTermInput: text
+                });
+              }}
+            />
 
-          <TextInput 
-            placeholder='New Definition'
-            style={styles.newDefinitionInput} 
-            value={this.state.newDefinitionInput}
-            multiline={true}
-            onChangeText={(text) => {
-              this.setState({
-                newDefinitionInput: text
-              });
-            }}
-          />
-          
-          <TouchableHighlight 
-            style={styles.addCardButton}
-            underlayColor='#1a5a84'
-            onPress={() => {
-              const {newTermInput, newDefinitionInput} = this.state;
-              this.props.addCard(newTermInput, newDefinitionInput);
+            <TextInput 
+              placeholder='New Definition'
+              style={styles.newDefinitionInput} 
+              value={this.state.newDefinitionInput}
+              multiline={true}
+              onChangeText={(text) => {
+                this.setState({
+                  newDefinitionInput: text
+                });
+              }}
+            />
+            
+            <TouchableHighlight 
+              style={styles.addCardButton}
+              underlayColor='#1a5a84'
+              onPress={() => {
+                const {newTermInput, newDefinitionInput} = this.state;
+                this.props.addCard(newTermInput, newDefinitionInput);
 
-              // Reset inputs
-              this.setState({
-                newTermInput: '',
-                newDefinitionInput: ''
-              })
-            }}
-          > 
-             <Text style={styles.addCardButtonText}>Add Card</Text>
-          </TouchableHighlight>
-        </View>
+                // Reset inputs
+                this.setState({
+                  newTermInput: '',
+                  newDefinitionInput: ''
+                })
+              }}
+            > 
+               <Text style={styles.addCardButtonText}>Add Card</Text>
+            </TouchableHighlight>
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
     );
   } 

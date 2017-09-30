@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import { 
   StyleSheet, 
@@ -30,7 +28,7 @@ const DEFAULT_CARDS = [
     term: "Hecuba",
     definition: 'Queen of Troy and centerpiece of USC Village’s Central Piazza',
     fav: false,
-    time: new Date()
+    time: new Date(Date.now() - 24 * 3600 * 1000 * 1234)
   }
 ];
 
@@ -45,12 +43,6 @@ class App extends Component {
   /*
     Toggles the new card modal
   */
-  _toggleModal = () => {
-    this.setState({
-      modalVisible: !this.state.modalVisible
-    });
-  }
-
   _toggleModal = () => {
     this.setState({
       modalVisible: !this.state.modalVisible
